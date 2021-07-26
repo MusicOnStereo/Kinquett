@@ -28,9 +28,13 @@ def splitlevel(line, splitchar):
   element = ""
   for i in linelist:
     if i == "(":
+      if parentheses > 0:
+        element = element + i
       parentheses += 1
     elif i == ")":
       parentheses -= 1
+      if parentheses > 0:
+        element = element + i
     elif i == splitchar and parentheses == 0:
       linesplit.append(element)
       element = ""
@@ -153,27 +157,27 @@ class inop:
     for i in params:
       if i == "+":
         curr = stack.pop(-1)
-        curr = curr + stack.pop(-1)
+        curr = stack.pop(-1) + curr
         stack.append(curr)
       elif i == "-":
         curr = stack.pop(-1)
-        curr = curr - stack.pop(-1)
+        curr = stack.pop(-1) - curr
         stack.append(curr)
       elif i == "*":
         curr = stack.pop(-1)
-        curr = curr * stack.pop(-1)
+        curr = stack.pop(-1) * curr
         stack.append(curr)
       elif i == "/":
         curr = stack.pop(-1)
-        curr = curr / stack.pop(-1)
+        curr = stack.pop(-1) / curr
         stack.append(curr)
       elif i == "^":
         curr = stack.pop(-1)
-        curr = curr ** stack.pop(-1)
+        curr = stack.pop(-1) ** curr
         stack.append(curr)
       elif i == "%":
         curr = stack.pop(-1)
-        curr = curr % stack.pop(-1)
+        curr = stack.pop(-1) % curr
         stack.append(curr)
       else:
         expecttype(i, [int])
@@ -225,14 +229,34 @@ class inop:
     for i in list(input(prompt)):
       inputlist.append(ord(i))
     return inputlist
+  
+  def get(params):
+    expecttype(params[0], [int])
+    return mem[params[0]]
 
+  def strtoint(params):
+    string = ""
+    expecttype(params[0], [list])
+    for i in params[0]:
+      expecttype(i, [int])
+      string = string + chr(i)
+    return int(string)
+  
+  def inttostr(params):
+    expecttype(params[0], [int])
+    string = str(params[0])
+    stringlist = []
+    for i in string:
+      stringlist.append(ord(i))
+    return stringlist
+    
 operations = {
 "print": operation.prt,
 "alloc": operation.alloc,
 "set": operation.set,
 "goto": operation.goto,
 "if": operation.conditional,
-"load": operation.load
+"load": operation.load,
 }
 inops = {
 "math": inop.math,
@@ -240,7 +264,10 @@ inops = {
 "and": inop.logic.logicand,
 "or": inop.logic.logicor,
 "not": inop.logic.logicnot,
-"input": inop.textinput
+"input": inop.textinput,
+"get": inop.get,
+"int": inop.strtoint,
+"str": inop.inttostr,
 }
 
 program = init.multiLineInput("Input program")
