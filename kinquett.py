@@ -54,8 +54,15 @@ def processvalue(value):
   if not value.split(" ")[0] in inops:
     valuetype = value[0]
     valueval = value[1:]
-    if valuetype == "&":
-      if valueval[0] == "#":
+    numericcharacters = [
+    "0","1","2","3","4","5","6","7","8","9","-"
+    ]
+    if valuetype == "&" or valuetype in numericcharacters:
+      designator = True
+      if valuetype != "&":
+        valueval = valuetype + valueval
+        designator = False
+      if valueval[0] == "#" and designator:
         valueval = splitlevel(valueval[1:], ",")
         valueprocessed = []
         for i in valueval:
@@ -71,7 +78,7 @@ def processvalue(value):
           valueprocessed.append(int(processvalue(valueval[i])))
         return mem[valueprocessed[0]: valueprocessed[1]]
       else:
-        return mem[int(valueval)]
+        return mem[int(processvalue(valueval))]
     elif valuetype == ":":
       return valueval
     else:
