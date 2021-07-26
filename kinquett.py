@@ -1,5 +1,4 @@
 mem = []
-ascii = {i: chr(i) for i in range(128)}
 line = 0
 program = []
 
@@ -8,7 +7,6 @@ class init:
     global mem
     global ascii
     mem = []
-    ascii = {i: chr(i) for i in range(128)}
     line = 0
   
   def multiLineInput(prompt):
@@ -62,7 +60,7 @@ def processvalue(value):
       else:
         return int(valueval)
     elif valuetype == "$":
-      if valueval[0] == 0:
+      if valueval[0] == "#":
         valueval = splitlevel(valueval[1:], ",")
         valueprocessed = []
         for i in range(0, 2):
@@ -103,11 +101,11 @@ class operation:
     else:
       paramtype = expecttype(params[0], [int, list])
       if paramtype is int:
-        print(ascii[params[0]])
+        print(chr(params[0]))
       else:
         string = ""
         for i in params[0]:
-          string = string + ascii[i]
+          string = string + chr(i)
         print(string)
         
   def alloc(params):
@@ -136,7 +134,18 @@ class operation:
       setline(params[2])
     else:
       raise ValueError("Out of range")
-
+  def load(params):
+    global mem
+    expecttype(params[0], [list])
+    expecttype(params[1], [int])
+    expecttype(params[2], [int])
+    length = len(params[0])
+    start = len(mem)
+    for i in params[0]:
+      expecttype(i, [int])
+      mem.append(i)
+    mem[params[1]] = start
+    mem[params[2]] = start + length
 
 class inop:
   def math(params):
@@ -202,6 +211,20 @@ class inop:
     def logicnot(params):
       expecttype(params[0], [bool])
       return int(not bool(params[0]))
+      
+  def textinput(params):
+    texttype = expecttype(params[0], [int, list])
+    prompt = ""
+    if texttype is list:
+      for i in params[0]:
+        expecttype(i, [int])
+        prompt = prompt + chr(i)
+    else:
+      prompt = chr(params[0])
+    inputlist = []
+    for i in list(input(prompt)):
+      inputlist.append(ord(i))
+    return inputlist
 
 operations = {
 "print": operation.prt,
@@ -209,7 +232,7 @@ operations = {
 "set": operation.set,
 "goto": operation.goto,
 "if": operation.conditional,
-
+"load": operation.load
 }
 inops = {
 "math": inop.math,
@@ -217,6 +240,7 @@ inops = {
 "and": inop.logic.logicand,
 "or": inop.logic.logicor,
 "not": inop.logic.logicnot,
+"input": inop.textinput
 }
 
 program = init.multiLineInput("Input program")
