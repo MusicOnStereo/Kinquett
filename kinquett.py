@@ -5,10 +5,10 @@ program = []
 class init:
   def initMain():
     global mem
-    global ascii
     mem = []
     line = 0
-  
+    program = []
+   
   def multiLineInput(prompt):
     singleLine = None
     multiLine = []
@@ -82,7 +82,7 @@ def processvalue(value):
     elif valuetype == ":":
       return valueval
     else:
-      raise ValueError(f"Invalid inop / identifier: {line}")
+      raise ValueError(f"Invalid inop / identifier")
   else:
     valuesplit = splitlevel(value, " ")
     valueprocessed = []
@@ -93,7 +93,7 @@ def processvalue(value):
 def expecttype(value, valtype):
   if not ((bool in valtype) and (value == 0 or value == 1)):
     if not type(value) in valtype:
-      raise ValueError(f"Expected {valtype}: {line}")
+      raise ValueError(f"Expected {valtype}")
     else:
       return type(value)
   else:
@@ -123,13 +123,18 @@ class operation:
     global mem
     expecttype(params[0], [int])
     for i in range(0, params[0]):
-      mem.append(0)
+      mem.append(None)
   
   def set(params):
     global mem
     expecttype(params[0], [int])
-    expecttype(params[1], [int])
-    mem[params[0]] = params[1]
+    paramtype = expecttype(params[1], [int, str])
+    if params == "null":
+      mem[params[0]] = None
+    elif paramtype is int:
+      mem[params[0]] = params[1]
+    else:
+      raise ValueError(f"Cannot assign {paramtype} to address")
     
   def goto(params):
     expecttype(params[0], [int])
@@ -279,5 +284,9 @@ inops = {
 
 program = init.multiLineInput("Input program")
 while line < len(program):
-  processoperation(program[line])
+  try:
+    processoperation(program[line])
+  except Exception as e:
+    print(str(e), f"\n\nline = {line}")
+    break
   line += 1
