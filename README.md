@@ -129,7 +129,7 @@ operation $3 (inop #5,2,$6 $#2,7)
 - `str` *`{value : int,float,list,bool,null}`* returns: `{result : list}`: Converts a value to a string (represented as a list).
 - `allocated` returns: `{allocated : int}`: returns the amount of memory allocated.
 - `input` *`{prompt : list}`* returns: `{input : list}`: Prompts the user with a specified `prompt` interpreted as a string and returns the input as a string. 
-- `load` *`{start : int}` `{overwrite : bool}` `{value : list}` returns: `{length : int}`: Loads a `list`, specified as the `value` parameter, into memory at the specified `start` pointer. If `overwrite` is true, it will overwrite existing values in memory as it loads the list into memory, else it will allocate memory as it loads the list. This function will allocate new memory if it reaches the end of the allocated memory, regardless of the `overwrite` setting. It returns the length of the list afterward.
+- `load` *`{start : int}` `{overwrite : bool}` `{value : list}`* returns: `{length : int}`: Loads a `list`, specified as the `value` parameter, into memory at the specified `start` pointer. If `overwrite` is true, it will overwrite existing values in memory as it loads the list into memory, else it will allocate memory as it loads the list. This function will allocate new memory if it reaches the end of the allocated memory, regardless of the `overwrite` setting. It returns the length of the list afterward.
 - `length` *`{list : list}`*: returns the length of a specified `list`.
 - `index` *`{list : list}` `{index : int}`*: returns the value of a specified `index` in the specified `list`
 
