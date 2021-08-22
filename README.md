@@ -103,7 +103,7 @@ operation null
 
 *e.g.*
 ```
-operation $3 (inop #5,2,$6 $#2,7)
+operation $3 (inop #5,2,$6) $#2,7
 ```
 
 ## Kinquett functions
