@@ -43,7 +43,6 @@ dunno.
 - Kinquett memory is handled as an ordered array, with addresses for each cell of memory.
 - You have to allocate memory before using it.
 - Memory cells can only hold floats and integers.
-- There is a "*kinquetiquette*", a style and memory organization standard for Kinquett. It can be found further down the page.
 - Kinquett is case-sensitive.
 - Kinquett's line index starts at `0`.
 - Booleans in Kinquett are represented as `0` and `1`.
