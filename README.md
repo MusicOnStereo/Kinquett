@@ -135,6 +135,6 @@ operation $3 (inop #5,2,$6) $#2,7
 
 ## Oh- and another thing
 
-I have spent a month developing this and I have sacrificed my mental health in the creation of this messy, unreadable code. If literally anyone is reading this, thank you for making my suffering worth it.
+Nevermind.
 
 ##### Code and documentation written by MusicOnStereo/MusicOnMono
