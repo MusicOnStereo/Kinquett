@@ -120,17 +120,17 @@ operation $3 (inop #5,2,$6) $#2,7
 
 - `math` *`{instructions : list}`* returns: `{result : int,float}`: An implementation of Reverse Polish Notation. The list can contain an arbitrary amount of instructions, and each element can either be a `float`, `int` or `special`. Mathematical operations can be specified by a `special` value and include `+`, `-`, `*`, `/`, `^`, and `%`. 
 - `compare` *`{value_1 : int,float,list,bool,null}` `{compare : special}` `{value_2 : int,float,list,bool,null}`* returns: `{result : bool}`: Compares `value_1` with `value_2` by the specified `compare`. Comparison operators for the `compare` parameter include `<`, `<=`, `==`, `!=`, `>=`, and `>`.
-- `and` *`{value_1 : bool}` `{value_2 : bool}` returns: `{result : bool}`: Performs the `and` comparison between 2 values. 
-- `or` *`{value_1 : bool}` `{value_2 : bool}` returns: `{result : bool}`: Performs the `or` comparison between 2 values. 
-- `not` *`{value : bool}` returns: `{result : bool}`: Inverts a boolean.
+- `and` *`{value_1 : bool}` `{value_2 : bool}`* returns: `{result : bool}`: Performs the `and` comparison between 2 values. 
+- `or` *`{value_1 : bool}` `{value_2 : bool}`* returns: `{result : bool}`: Performs the `or` comparison between 2 values. 
+- `not` *`{value : bool}`* returns: `{result : bool}`: Inverts a boolean.
 - `int` *`{value : int,float,list}`* returns: `{result : int}`: Converts a value to an integer.
 - `float` *`{value : int,float,list}`* returns: `{result : float}`: Converts a value to a float.
 - `str` *`{value : int,float,list,bool,null}`* returns: `{result : list}`: Converts a value to a string (represented as a list).
 - `allocated` returns: `{allocated : int}`: returns the amount of memory allocated.
 - `input` *`{prompt : list}`* returns: `{input : list}`: Prompts the user with a specified `prompt` interpreted as a string and returns the input as a string. 
 - `load` *`{start : int}` `{overwrite : bool}` `{value : list}`* returns: `{length : int}`: Loads a `list`, specified as the `value` parameter, into memory at the specified `start` pointer. If `overwrite` is true, it will overwrite existing values in memory as it loads the list into memory, else it will allocate memory as it loads the list. This function will allocate new memory if it reaches the end of the allocated memory, regardless of the `overwrite` setting. It returns the length of the list afterward.
-- `length` *`{list : list}`*: returns the length of a specified `list`.
-- `index` *`{list : list}` `{index : int}`*: returns the value of a specified `index` in the specified `list`
+- `length` *`{list : list}`* returns: `{length : int}`: returns the length of a specified `list`.
+- `index` *`{list : list}` `{index : int}`* returns: `{item : int,float,list,bool,null}`: returns the value of a specified `index` in the specified `list`
 
 
 ## Oh- and another thing
