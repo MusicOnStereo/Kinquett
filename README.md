@@ -131,6 +131,7 @@ operation $3 (inop #5,2,$6) $#2,7
 - `load` *`{start : int}` `{overwrite : bool}` `{value : list}`* returns: `{length : int}`: Loads a `list`, specified as the `value` parameter, into memory at the specified `start` pointer. If `overwrite` is true, it will overwrite existing values in memory as it loads the list into memory, else it will allocate memory as it loads the list. This function will allocate new memory if it reaches the end of the allocated memory, regardless of the `overwrite` setting. It returns the length of the list afterward.
 - `length` *`{list : list}`* returns: `{length : int}`: returns the length of a specified `list`.
 - `index` *`{list : list}` `{index : int}`* returns: `{item : int,float,list,bool,null}`: returns the value of a specified `index` in the specified `list`
+- `cat` *`{list_1 : list}` `{list_2 : list}`* returns: `{concatenated_list : list}`: returns `list_1` concatenated to `list_2`
 
 
 ## Oh- and another thing
