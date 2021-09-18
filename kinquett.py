@@ -316,6 +316,11 @@ class Inop:
         expect_type(params[0], [list])
         expect_type(params[1], [int])
         return params[0][params[1]]
+    
+    def cat(params):
+        expect_type(params[0], [list])
+        expect_type(params[1], [list])
+        return params[0] + params[1]
 
 
 OPERATIONS = {
@@ -341,6 +346,7 @@ INOPS = {
     "allocated": Inop.allocated,
     "length": Inop.length,
     "index": Inop.index,
+    "cat": Inop.cat,
 }
 
 
