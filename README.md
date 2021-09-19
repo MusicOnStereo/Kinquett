@@ -132,7 +132,7 @@ operation $3 (inop #5,2,$6) $#2,7
 
 ### Inline operations
 
-- `math` *`{instructions : list}`* returns: `{result : int,float}`: An implementation of Reverse Polish Notation. The list can contain an arbitrary amount of instructions, and each element can either be a `float`, `int` or `special`. Mathematical operations can be specified by a `special` value and include `+`, `-`, `*`, `/`, `^`, and `%`. 
+- `math` *`{instructions : list}`* returns: `{result : int,float}`: An implementation of Reverse Polish Notation. The list can contain an arbitrary amount of instructions, and each element can either be a `float`, `int` or `special`. Mathematical operations can be specified by a `special` value and include `+`, `-`, `*`, `/`, `//`, `^`, and `%`. 
 - `compare` *`{value_1 : int,float,list,bool,null}` `{compare : special}` `{value_2 : int,float,list,bool,null}`* returns: `{result : bool}`: Compares `value_1` with `value_2` by the specified `compare`. Comparison operators for the `compare` parameter include `<`, `<=`, `==`, `!=`, `>=`, and `>`.
 - `and` *`{value_1 : bool}` `{value_2 : bool}`* returns: `{result : bool}`: Performs the `and` comparison between 2 values. 
 - `or` *`{value_1 : bool}` `{value_2 : bool}`* returns: `{result : bool}`: Performs the `or` comparison between 2 values. 
