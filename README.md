@@ -1,4 +1,4 @@
-# Kinquett Documentation 1.1 (dev update 9)
+# Kinquett Documentation 1.2 (dev update 10)
 
 Kinquett is an esoteric programming language based on assembly syntax programmed in everyone's favorite language, *Python*
 
@@ -97,6 +97,20 @@ Null specifies... Null. What did you think it did?
 *e.g.*
 ```
 operation null
+```
+
+### Comments
+
+Comments are indicated with a `..` at the beginning of a line.
+
+*e.g.*
+```
+.. I'm a comment!
+..I'm also a comment, though uglier :(
+```
+Comments cannot be on the same line as any code, they have to be on separate lines.
+```
+operation null 2 .. I'm not a comment, I'm an error!
 ```
 
 ### These can be combined to replicate any computational task.
