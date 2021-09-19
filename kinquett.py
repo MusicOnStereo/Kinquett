@@ -34,11 +34,12 @@ def split_level(line, split_char):
 
 # At least this function hasn't broken ever.
 def process_operation(line):
-    line_split = split_level(line, " ")
-    line_processed = []
-    for i in range(1, len(line_split)):
-        line_processed.append(process_value(line_split[i]))
-    OPERATIONS[line_split[0]](line_processed)
+    if not line.startswith(".."):
+        line_split = split_level(line, " ")
+        line_processed = []
+        for i in range(1, len(line_split)):
+            line_processed.append(process_value(line_split[i]))
+        OPERATIONS[line_split[0]](line_processed)
 
 
 # Why does it always have to be ***this*** function?? THIS ONE. This
@@ -180,6 +181,10 @@ class Inop:
             elif i == "/":
                 curr = stack.pop(-1)
                 curr = stack.pop(-1) / curr
+                stack.append(curr)
+            elif i == "//":
+                curr = stack.pop(-1)
+                curr = stack.pop(-1) // curr
                 stack.append(curr)
             elif i == "^":
                 curr = stack.pop(-1)
