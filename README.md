@@ -106,11 +106,11 @@ Comments are indicated with a `..` at the beginning of a line.
 *e.g.*
 ```
 .. I'm a comment!
-..I'm also a comment, though uglier :(
+..i guess this still is a comment
 ```
 Comments cannot be on the same line as any code, they have to be on separate lines.
 ```
-operation null 2 .. I'm not a comment, I'm an error!
+operation null 2 .. I'm an error.
 ```
 
 ### These can be combined to replicate any computational task.
@@ -147,9 +147,5 @@ operation $3 (inop #5,2,$6) $#2,7
 - `index` *`{list : list}` `{index : int}`* returns: `{item : int,float,list,bool,null}`: returns the value of a specified `index` in the specified `list`
 - `cat` *`{list_1 : list}` `{list_2 : list}`* returns: `{concatenated_list : list}`: returns `list_1` concatenated to `list_2`
 
-
-## Oh- and another thing
-
-Nevermind.
 
 ##### Code and documentation written by MusicOnStereo/MusicOnMono
