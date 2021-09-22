@@ -1,8 +1,20 @@
+import importlib.util
+from pathlib import Path
+
 mem = []
 line = 0
+extensions = {}
 
-# I hate this function.
-
+def import_ext(path):
+    nametxt = open(str((path / "name.txt").resolve()), "r")
+    name = "kq_" + nametxt.read()
+    nametxt.close()
+    main = str((path / "main.py").resolve())
+    
+    spec = importlib.util.spec_from_file_location(name, main)
+    extension = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(extension)
+    return extension
 
 def split_level(line, split_char):
     parentheses = 0
@@ -31,8 +43,6 @@ def split_level(line, split_char):
         line_split.append(element)
     return line_split
 
-
-# At least this function hasn't broken ever.
 def process_operation(line):
     if not line.startswith(".."):
         line_split = split_level(line, " ")
@@ -41,12 +51,6 @@ def process_operation(line):
             line_processed.append(process_value(line_split[i]))
         OPERATIONS[line_split[0]](line_processed)
 
-
-# Why does it always have to be ***this*** function?? THIS ONE. This
-# function has caused me much agony and it is ***unbearingly*** difficult
-# to debug at times. I hate this stupid function and the nature of its
-# existence.  Why, why, why?? I see the function's name pop up in the
-# traceback after an error and I get infuriated.
 def process_value(value):
     if not value.split(" ")[0] in INOPS:
         value_type = value[0]
@@ -104,7 +108,6 @@ def expect_type(value, val_type):
     else:
         return bool
 
-
 # Because I was too lazy to just do a bit of subtraction, lol
 def set_line(set):
     global line
@@ -158,6 +161,22 @@ class Operation:
         else:
             set_line(params[2])
 
+    def import_extension(params):
+        global extensions
+        
+        expect_type(params[0], [str])
+        expect_type(params[1], [str])
+        extensions[params[1]] = import_ext(Path(params[0]))
+        
+    def extension_op(params):
+        global extensions
+        global mem
+        global line
+        
+        expect_type(params[0], [str])
+        expect_type(params[1], [str])
+        expect_type(params[2], [list])
+        extensions[params[0]].OPERATIONS[params[1]](params[2], [mem, line])
 
 class Inop:
     # Yandere moment
@@ -255,10 +274,13 @@ class Inop:
     class Conversions:
         def convert_int(params):
             string = ""
-            expect_type(params[0], [list, float, int])
-            for i in params[0]:
-                expect_type(i, [int])
-                string = string + chr(i)
+            param_type = expect_type(params[0], [list, float, int])
+            if param_type is List:
+                for i in params[0]:
+                    expect_type(i, [int])
+                    string = string + chr(i)
+            else:
+                string = params[0]
             return int(string)
 
         def convert_str(params):
@@ -326,6 +348,16 @@ class Inop:
         expect_type(params[0], [list])
         expect_type(params[1], [list])
         return params[0] + params[1]
+        
+    def extension_inop(params):
+        global extensions
+        global mem
+        global line
+        
+        expect_type(params[0], [str])
+        expect_type(params[1], [str])
+        expect_type(params[2], [list])
+        return extensions[params[0]].INOPS[params[1]](params[2], [mem, line])
 
 
 OPERATIONS = {
@@ -334,7 +366,9 @@ OPERATIONS = {
     "set": Operation.set,
     "goto": Operation.goto,
     "if": Operation.conditional,
-    "free": Operation.free
+    "free": Operation.free,
+    "import": Operation.import_extension,
+    "eop": Operation.extension_op,
 }
 INOPS = {
     "math": Inop.math,
@@ -352,6 +386,7 @@ INOPS = {
     "length": Inop.length,
     "index": Inop.index,
     "cat": Inop.cat,
+    "ein": Inop.extension_inop,
 }
 
 
