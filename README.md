@@ -123,29 +123,33 @@ operation $3 (inop #5,2,$6) $#2,7
 ## Kinquett functions
 
 ### Operations 
-- `print` *`{value : int,float,list,null}`*: What do you think it does? It prints a value. If the value is a `list` it will treat it as a string and print the unicode characters for each element, else it will just print the value.
+- `print` *`{value : int/float/list/null}`*: What do you think it does? It prints a value. If the value is a `list` it will treat it as a string and print the unicode characters for each element, else it will just print the value.
 - `alloc`  *`{amount : int}` `{start : int}`*: Allocates the specified `amount` of memory at the specified `start` pointer. The index of the first allocated cell will be the `start` pointer value.
 - `free` *`{amount : int}` `start : int}`*: Frees the specified `amount` of memory at the specified `start` pointer. 
-- `set` *`{pointer : int,null}` `{value : int,float,null}`*: Sets the specified `pointer` to the specified value. If the pointer is `null` then it does nothing. 
+- `set` *`{pointer : int/null}` `{value : int/float/null}`*: Sets the specified `pointer` to the specified value. If the pointer is `null` then it does nothing. 
 - `goto` *`{line : int}`*: Goes to the specific line. 
 - `if` *`{condition : bool}` `{true : int}` `{false : int}`*: If the specified `condition` is `true` (represented as `1`), it goes to the specified `true` parameter line, else it goes to the specified `false` parameter line.
+- `import` *`{path : spc}` `{name : spc}`*: Import a valid Kinquett extension with the path of `path` under the name of `name`. "valid" explained further in `EXTENSIONS.md`.
+- `eop` *`{name : spc}` `{operation : spc}` `{params : list}`*: Execute an operation specified by `operation` in an extension specified by the `name`. Parameters are passed as a list through the `params` parameter. 
 
 ### Inline operations
 
-- `math` *`{instructions : list}`* returns: `{result : int,float}`: An implementation of Reverse Polish Notation. The list can contain an arbitrary amount of instructions, and each element can either be a `float`, `int` or `special`. Mathematical operations can be specified by a `special` value and include `+`, `-`, `*`, `/`, `//`, `^`, and `%`. 
-- `compare` *`{value_1 : int,float,list,bool,null}` `{compare : special}` `{value_2 : int,float,list,bool,null}`* returns: `{result : bool}`: Compares `value_1` with `value_2` by the specified `compare`. Comparison operators for the `compare` parameter include `<`, `<=`, `==`, `!=`, `>=`, and `>`.
+- `math` *`{instructions : list}`* returns: `{result : int/float}`: An implementation of Reverse Polish Notation. The list can contain an arbitrary amount of instructions, and each element can either be a `float`, `int` or `special`. Mathematical operations can be specified by a `special` value and include `+`, `-`, `*`, `/`, `//`, `^`, and `%`. 
+- `compare` *`{value_1 : int/float/list/bool/null}` `{compare : special}` `{value_2 : int/float/list/bool/null}`* returns: `{result : bool}`: Compares `value_1` with `value_2` by the specified `compare`. Comparison operators for the `compare` parameter include `<`, `<=`, `==`, `!=`, `>=`, and `>`.
 - `and` *`{value_1 : bool}` `{value_2 : bool}`* returns: `{result : bool}`: Performs the `and` comparison between 2 values. 
 - `or` *`{value_1 : bool}` `{value_2 : bool}`* returns: `{result : bool}`: Performs the `or` comparison between 2 values. 
 - `not` *`{value : bool}`* returns: `{result : bool}`: Inverts a boolean.
-- `int` *`{value : int,float,list}`* returns: `{result : int}`: Converts a value to an integer.
-- `float` *`{value : int,float,list}`* returns: `{result : float}`: Converts a value to a float.
-- `str` *`{value : int,float,list,bool,null}`* returns: `{result : list}`: Converts a value to a string (represented as a list).
+- `int` *`{value : int/float/list}`* returns: `{result : int}`: Converts a value to an integer.
+- `float` *`{value : int/float/list}`* returns: `{result : float}`: Converts a value to a float.
+- `str` *`{value : int/float/list/bool/null}`* returns: `{result : list}`: Converts a value to a string (represented as a list).
+- `spc` *`{value : list}`* returns: `{result : spc}`: Converts a string to a special.
 - `allocated` returns: `{allocated : int}`: returns the amount of memory allocated.
 - `input` *`{prompt : list}`* returns: `{input : list}`: Prompts the user with a specified `prompt` interpreted as a string and returns the input as a string. 
 - `load` *`{start : int}` `{overwrite : bool}` `{value : list}`* returns: `{length : int}`: Loads a `list`, specified as the `value` parameter, into memory at the specified `start` pointer. If `overwrite` is true, it will overwrite existing values in memory as it loads the list into memory, else it will allocate memory as it loads the list. This function will allocate new memory if it reaches the end of the allocated memory, regardless of the `overwrite` setting. It returns the length of the list afterward.
 - `length` *`{list : list}`* returns: `{length : int}`: returns the length of a specified `list`.
-- `index` *`{list : list}` `{index : int}`* returns: `{item : int,float,list,bool,null}`: returns the value of a specified `index` in the specified `list`
+- `index` *`{list : list}` `{index : int}`* returns: `{item : int/float/list/bool/null/spc}`: returns the value of a specified `index` in the specified `list`
 - `cat` *`{list_1 : list}` `{list_2 : list}`* returns: `{concatenated_list : list}`: returns `list_1` concatenated to `list_2`
+- `ein` *`{name : spc}` `{inline_operation : spc}` `{params : list}`* returns: `{result : int/float/list/bool/null/spc}`: Execute an inline operation specified by `inline_operation` in an extension specified by the `name`. Parameters are passed as a list through the `params` parameter. 
 
 
 ##### Code and documentation written by MusicOnStereo/MusicOnMono
