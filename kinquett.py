@@ -123,8 +123,6 @@ def list_to_str(string_list):
         chr_string += chr(i)
     return chr_string
     
-# I don't actually know what classes do but I'm just using them to
-# organize stuff
 
 
 class Operation:
