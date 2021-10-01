@@ -114,6 +114,18 @@ def set_line(set):
 
     line = set - 1
 
+def str_to_list(string):
+    ord_list = []
+    for i in string:
+        ord_list.append(ord(i))
+    return ord_list
+    
+def list_to_str(string_list):
+    chr_string = ""
+    for i in string_list:
+        chr_string += chr(i)
+    return chr_string
+    
 # I don't actually know what classes do but I'm just using them to
 # organize stuff
 
@@ -122,10 +134,7 @@ class Operation:
     def prt(params):
         param_type = expect_type(params[0], [int, float, None, list])
         if param_type is list:
-            string = ""
-            for i in params[0]:
-                string = string + chr(i)
-            print(string)
+            print(list_to_str(params[0])) 
         elif param_type is None:
             print("null")
         else:
@@ -316,6 +325,11 @@ class Inop:
                 string = string + chr(i)
             return float(string)
 
+        def convert_special(params):
+            string = ""
+            expect_type(params[0], [list])
+            return str_to_list(params[0])
+         
     def allocated(params):
         return len(mem)
 
@@ -382,6 +396,7 @@ INOPS = {
     "int": Inop.Conversions.convert_int,
     "float": Inop.Conversions.convert_float,
     "str": Inop.Conversions.convert_str,
+    "special": Inop.Conversions.convert_special,
     "allocated": Inop.allocated,
     "length": Inop.length,
     "index": Inop.index,
