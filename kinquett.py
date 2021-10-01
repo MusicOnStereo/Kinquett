@@ -6,8 +6,8 @@ line = 0
 extensions = {}
 
 def import_ext(path):
-    nametxt = open(str((path / "name.txt").resolve()), "r")
-    name = "kq_" + nametxt.read()
+    nametxt = open(str((path / "kq_name_.txt").resolve()), "r")
+    name = "kq_" + nametxt.read() + "_"
     nametxt.close()
     main = str((path / "main.py").resolve())
     
