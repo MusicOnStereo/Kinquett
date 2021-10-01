@@ -1,4 +1,4 @@
-# Kinquett Documentation 1.3 (dev update 11)
+# Kinquett Documentation 1.3 (dev update 12)
 
 Kinquett is an esoteric programming language based on assembly syntax programmed in everyone's favorite language, *Python*
 
