@@ -5,13 +5,10 @@ mem = []
 line = 0
 extensions = {}
 
-def import_ext(path):
-    nametxt = open(str((path / "kq_name_.txt").resolve()), "r")
-    name = "kq_" + nametxt.read() + "_"
-    nametxt.close()
+def import_ext(path, name):
     main = str((path / "main.py").resolve())
     
-    spec = importlib.util.spec_from_file_location(name, main)
+    spec = importlib.util.spec_from_file_location("kq_" + name, main)
     extension = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(extension)
     return extension
@@ -175,7 +172,7 @@ class Operation:
         
         expect_type(params[0], [str])
         expect_type(params[1], [str])
-        extensions[params[1]] = import_ext(Path(params[0]))
+        extensions[params[1]] = import_ext(Path(params[0]), params[1])
         
     def extension_op(params):
         global extensions
