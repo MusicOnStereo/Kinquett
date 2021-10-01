@@ -328,7 +328,7 @@ class Inop:
         def convert_special(params):
             string = ""
             expect_type(params[0], [list])
-            return str_to_list(params[0])
+            return list_to_str(params[0])
          
     def allocated(params):
         return len(mem)
@@ -396,7 +396,7 @@ INOPS = {
     "int": Inop.Conversions.convert_int,
     "float": Inop.Conversions.convert_float,
     "str": Inop.Conversions.convert_str,
-    "special": Inop.Conversions.convert_special,
+    "spc": Inop.Conversions.convert_special,
     "allocated": Inop.allocated,
     "length": Inop.length,
     "index": Inop.index,
