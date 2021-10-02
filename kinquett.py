@@ -106,10 +106,10 @@ def expect_type(value, val_type):
         return bool
 
 # Because I was too lazy to just do a bit of subtraction, lol
-def set_line(set):
+def set_line(line_set):
     global line
 
-    line = set - 1
+    line = line_set - 1
 
 def str_to_list(string):
     ord_list = []
@@ -123,6 +123,8 @@ def list_to_str(string_list):
         chr_string += chr(i)
     return chr_string
     
+# I don't actually know what classes do but I'm just using them to
+# organize stuff
 
 
 class Operation:
@@ -167,6 +169,8 @@ class Operation:
 
     def import_extension(params):
         global extensions
+        global mem
+        global line
         
         expect_type(params[0], [str])
         expect_type(params[1], [str])
@@ -180,7 +184,7 @@ class Operation:
         expect_type(params[0], [str])
         expect_type(params[1], [str])
         expect_type(params[2], [list])
-        extensions[params[0]].OPERATIONS[params[1]](params[2], [mem, line])
+        extensions[params[0]].OPERATIONS[params[1]](params[2], {"mem": mem, "line": line})
 
 class Inop:
     # Yandere moment
@@ -366,7 +370,7 @@ class Inop:
         expect_type(params[0], [str])
         expect_type(params[1], [str])
         expect_type(params[2], [list])
-        return extensions[params[0]].INOPS[params[1]](params[2], [mem, line])
+        return extensions[params[0]].INOPS[params[1]](params[2], {"mem": mem, "line": line})
 
 
 OPERATIONS = {
