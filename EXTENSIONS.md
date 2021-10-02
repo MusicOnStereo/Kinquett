@@ -2,7 +2,7 @@
 
 Kinquett extensions are stored as directories with python files. 
 
-# `main.py`
+## `main.py`
 
 When `import` is called on an extension, the `main.py` file in the directory is called. The `main.py` file should be a direct child of the extension directory. The `main.py` file should be built off of the following template, which contains definitions and dictionaries of all the operations and inline operations of the extension.
 ```python
@@ -58,19 +58,19 @@ When an operation / inline operation is called it searches the `OPERATIONS` / `I
 ``` 
 `mem` and `line` are the memory list and current line global variables in the main Kinquett program respectively.
 
-## `expect_type`
+### `expect_type`
 
 Format: `expect_type(value, val_type)`
 
 Raises an error when the value type isn't in the list of types. A value is considered a bool when it is equal to `0` or `1`. Returns the class of the type of the value, except for `None`, which returns `None` rather than `<class 'NoneType'>`. Special values in Kinquett are represented as strings.
 
-## `set_line`
+### `set_line`
 
 Format: `set_line(line_set, line)`
 
 Sets the line to the line specified by `line_set`, accounting for the line increment by automatic line incrementing when reading code. Set `line` to the `"line"` value in the `globals` dictionary passed when an operation or inline operation is called.
 
-## `str_to_list` and `list_to_str`
+### `str_to_list` and `list_to_str`
 
 Format: `str_to_list(string)`
 
@@ -78,10 +78,10 @@ Format: `list_to_str(list)`
 
 Turns a string into a list with each letter as the unicode pointer and vice versa.
 
-## `Operation` and `Inop` 
+### `Operation` and `Inop` 
 
 Classes containing operations and inline operations respectively.
 
-## `OPERATIONS` and `INOPS`
+### `OPERATIONS` and `INOPS`
 
 Dictionaries containing operation / inline operation strings as keys and appropiate function objects as values respectively.
